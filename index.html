@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Happy Birthday 🎂</title>
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Quicksand:wght@400;600;700&family=Black+Ops+One&display=swap" rel="stylesheet" />
+</head>
+<body>
+
+  <div id="intro-screen">
+    <div class="intro-bg-grid"></div>
+    <div class="intro-content">
+      <div class="envelope-wrapper" id="envelopeWrapper">
+        <div class="envelope" id="envelope">
+          <div class="envelope-back"></div>
+          <div class="envelope-front">
+            <div class="envelope-flap" id="envelopeFlap"></div>
+            <div class="envelope-body">
+              <div class="envelope-seal">💌</div>
+            </div>
+          </div>
+          <div class="letter" id="letter">
+            <p class="letter-text">Có một điều đặc biệt<br/>dành cho cậu...</p>
+            <span class="letter-icon">✨</span>
+          </div>
+        </div>
+      </div>
+      <p class="intro-hint" id="introHint">Nhấn vào phong bì để mở 👆</p>
+    </div>
+  </div>
+
+  <div id="main-page" class="hidden">
+
+    <div id="particles"></div>
+
+    <section class="hero">
+      <div class="hero-glitch-bg"></div>
+      <div class="scanline"></div>
+      <div class="hero-content">
+        <div class="birthday-badge">🎉 HÔM NAY LÀ NGÀY ĐẶC BIỆT</div>
+        <h1 class="hero-title">
+          <span class="glitch-text" data-text="HAPPY">HAPPY</span><br/>
+          <span class="glitch-text neon-pink" data-text="BIRTHDAY">BIRTHDAY</span>
+        </h1>
+        <h2 class="hero-name" id="heroName">☁️ Trần Khánh Ly 🍀</h2>
+        <div class="hero-photo-frame">
+          <img src="https://res.cloudinary.com/dwxas9epy/image/upload/v1778938362/KhanhLy_tt_ii3qbw.jpg" alt="photo" class="hero-photo" id="heroPhoto" />
+          <div class="photo-ring"></div>
+          <div class="photo-sparkles">
+            <span>✨</span><span>⭐</span><span>💫</span><span>🌟</span>
+          </div>
+        </div>
+        <p class="hero-subtitle">Chúc mừng sinh nhật cậu nhó! 🎂</p>
+        <button class="cta-btn" id="scrollDown">
+          <span class="btn-icon">💌</span>
+          <span>Một chút lời chúc</span>
+          <span class="btn-icon">💌</span>
+        </button>
+      </div>
+    </section>
+
+    <section class="gifts-section" id="giftsSection">
+      <h2 class="section-title">💌 Mở thiệp nào! 💌</h2>
+      <p class="section-sub">Nhấn vào từng hộp quà nè</p>
+      <div class="gifts-grid">
+
+        <div class="gift-card" data-gift="1">
+          <div class="gift-box-wrap">
+            <div class="gift-box">
+              <div class="gift-lid">
+                <div class="gift-ribbon-h"></div>
+                <div class="gift-ribbon-v"></div>
+                <div class="gift-bow">🎀</div>
+              </div>
+              <div class="gift-base"><span class="gift-emoji">🌸</span></div>
+            </div>
+            <div class="gift-reveal">
+              <div class="gift-reveal-inner">
+                <div class="gift-reveal-emoji">💝</div>
+                <h3>Tình Bạn Trăm Năm</h3>
+                <p>Cảm ơn vì đã đến và ở lại, dù cho không ít chuyện đã xảy ra giữa chúng ta. Thật lòng, đối với tớ, cậu luôn là một người bạn siêu tuyệt vời! 🌷</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="gift-card" data-gift="2">
+          <div class="gift-box-wrap">
+            <div class="gift-box gift-box--blue">
+              <div class="gift-lid">
+                <div class="gift-ribbon-h"></div>
+                <div class="gift-ribbon-v"></div>
+                <div class="gift-bow">🎗️</div>
+              </div>
+              <div class="gift-base"><span class="gift-emoji">⭐</span></div>
+            </div>
+            <div class="gift-reveal">
+              <div class="gift-reveal-inner">
+                <div class="gift-reveal-emoji">🏆</div>
+                <h3>Siêu Sao Của Năm</h3>
+                <p>Giữa vô vàn vì sao, cậu là ngôi sao sáng nhất trong cuộc đời chính mình! Chúc cậu tỏa sáng hơn bao giờ hết, rực rỡ theo cách riêng của mình! ✨</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="gift-card" data-gift="3">
+          <div class="gift-box-wrap">
+            <div class="gift-box gift-box--green">
+              <div class="gift-lid">
+                <div class="gift-ribbon-h"></div>
+                <div class="gift-ribbon-v"></div>
+                <div class="gift-bow">🌟</div>
+              </div>
+              <div class="gift-base"><span class="gift-emoji">🎵</span></div>
+            </div>
+            <div class="gift-reveal">
+              <div class="gift-reveal-inner">
+                <div class="gift-reveal-emoji">🎶</div>
+                <h3>Giai Điệu Hạnh Phúc</h3>
+                <p>Mỗi ngày của cậu xứng đáng là một bản nhạc vui. Dù cuộc sống sẽ có lúc không như ý nhưng mong cậu luôn tươi cười và yêu đời! 🎸</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="gift-card gift-card--special" data-gift="4">
+          <div class="gift-box-wrap">
+            <div class="gift-box gift-box--gold">
+              <div class="gift-lid">
+                <div class="gift-ribbon-h"></div>
+                <div class="gift-ribbon-v"></div>
+                <div class="gift-bow">👑</div>
+              </div>
+              <div class="gift-base"><span class="gift-emoji">💎</span></div>
+            </div>
+            <div class="gift-reveal">
+              <div class="gift-reveal-inner">
+                <div class="gift-reveal-emoji">🥂</div>
+                <h3>Điều Ước Sinh Nhật</h3>
+                <p>Chúc Khánh Ly tuổi mới thật trọn vẹn — Chúc cho tất cả ước muốn và dự định của Ly thành hiện thực, chúc Ly nhiều sức khỏe và gặp nhiều may mắn! 🍀</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <section class="memories-section" id="memoriesSection">
+      <h2 class="section-title">📸 Memory 📸</h2>
+      <p class="section-sub">
+        Những chiếc ảnh tớ thấy xinh <br>
+        (Click vào để xem nè)
+      </p>
+      <div class="photo-wall">
+        <div class="polaroid polaroid--tilt-left" onclick="openLightbox(this)">
+          <img src="https://res.cloudinary.com/dwxas9epy/image/upload/v1778940895/KhanhLy_ad_mx5kct.jpg" alt="memory" />
+          <p>Ly áo dài 🌸</p>
+        </div>
+        <div class="polaroid polaroid--tilt-right" onclick="openLightbox(this)">
+          <img src="https://res.cloudinary.com/dwxas9epy/image/upload/v1778939345/KhanhLy_cn_fwbroc.jpg" alt="memory" />
+          <p>Ly cử nhân 🎓️</p>
+        </div>
+        <div class="polaroid polaroid--straight" onclick="openLightbox(this)">
+          <img src="https://res.cloudinary.com/dwxas9epy/image/upload/v1778941154/KhanhLy_tl_mwedta.png" alt="memory" />
+          <p>Ly học sinh 📖</p>
+        </div>
+        <div class="polaroid polaroid--tilt-left" onclick="openLightbox(this)">
+          <img src="https://res.cloudinary.com/dwxas9epy/image/upload/v1778940987/KhanhLy_ms_jdtkna.jpg" alt="memory" />
+          <p>Ly cute ✨</p>
+        </div>
+        <div class="polaroid polaroid--tilt-right" onclick="openLightbox(this)">
+          <img src="https://res.cloudinary.com/dwxas9epy/image/upload/v1778940714/KhanhLy_3_azzibp.jpg" alt="memory" />
+          <p>Chút khoảnh khắc 📸</p>
+        </div>
+        <div class="polaroid polaroid--straight" onclick="openLightbox(this)">
+          <img src="https://res.cloudinary.com/dwxas9epy/image/upload/v1778940713/KhanhLy_WithTam_sk3put.jpg" alt="memory" />
+          <p>Ly with Tâm 🌈</p>
+        </div>
+        <div class="polaroid polaroid--tilt-left" onclick="openLightbox(this)">
+          <img src="https://res.cloudinary.com/dwxas9epy/image/upload/v1778940503/KhanhLy_WithTram_iv4ulw.jpg" alt="memory" />
+          <p>Ly with Trâm 🌈</p>
+        </div>
+        <div class="polaroid polaroid--tilt-right" onclick="openLightbox(this)">
+          <img src="https://res.cloudinary.com/dwxas9epy/image/upload/v1778942463/KhanhLy_Memory_hidohq.jpg" alt="memory" />
+          <p>Chút khoảnh khắc 📸</p>
+        </div>
+      </div>
+
+    </section>
+
+    <section class="cake-section">
+      <h2 class="section-title">🎂 Thổi Nến Nào! 🎂</h2>
+      <div class="cake-container">
+        <div class="cake" id="cake">
+          <div class="candles" id="candles">
+            <div class="candle"><div class="flame" id="f1"></div></div>
+            <div class="candle"><div class="flame" id="f2"></div></div>
+            <div class="candle"><div class="flame" id="f3"></div></div>
+            <div class="candle"><div class="flame" id="f4"></div></div>
+            <div class="candle"><div class="flame" id="f5"></div></div>
+          </div>
+          <div class="cake-top">
+            <div class="cake-decoration">🌸 🎉 🌸</div>
+          </div>
+          <div class="cake-mid"></div>
+          <div class="cake-bot"></div>
+          <div class="cake-plate"></div>
+        </div>
+        <button class="blow-btn" id="blowBtn">💨 Thổi nến!</button>
+        <p class="cake-msg" id="cakeMsg"></p>
+      </div>
+    </section>
+
+    <section class="sticker-section">
+      <h2 class="section-title">🎨 Bảng Sticker</h2>
+      <p class="section-sub">Kéo thả sticker lên bảng — tự do sáng tạo nè!</p>
+      <div class="sticker-toolbar">
+        <button class="sticker-btn" data-emoji="🎉">🎉</button>
+        <button class="sticker-btn" data-emoji="💖">💖</button>
+        <button class="sticker-btn" data-emoji="✨">✨</button>
+        <button class="sticker-btn" data-emoji="🌈">🌈</button>
+        <button class="sticker-btn" data-emoji="🦋">🦋</button>
+        <button class="sticker-btn" data-emoji="🌸">🌸</button>
+        <button class="sticker-btn" data-emoji="🎂">🎂</button>
+        <button class="sticker-btn" data-emoji="🎁">🎁</button>
+        <button class="sticker-btn" data-emoji="🥂">🥂</button>
+        <button class="sticker-btn" data-emoji="🌟">🌟</button>
+        <button class="sticker-btn" data-emoji="🎊">🎊</button>
+        <button class="sticker-btn" data-emoji="💫">💫</button>
+      </div>
+      <div class="sticker-board" id="stickerBoard">
+        <p class="sticker-hint">← Nhấn sticker bên trên để thêm vào đây!</p>
+      </div>
+      <button class="clear-btn" id="clearStickers">🗑️ Xóa tất cả</button>
+    </section>
+
+    <section class="finale-section">
+      <div class="finale-content">
+        <div class="finale-emoji-burst">🎆🎇✨🎉🥳🎊💫🌟⭐</div>
+        <h2 class="finale-title">Happy Birthday,<br/><span class="finale-name">Khánh Ly</span>!</h2>
+        <p class="finale-msg">
+          Tớ làm cái này cũng chỉ là một phút ngẫu hứng, hi vọng có thể mang tới chút niềm vui mở đầu để đón vô vàn niềm vui khác cho tuổi mới của cậu. Mong là cậu thích!🌈🎂✨
+        </p>
+        <div class="confetti-trigger-btn-wrap">
+          <button class="confetti-trigger-btn" id="confettiBtn">✨ Click vào đây</button>
+          <p class="firework-hint">Nhấn vào màn hình để tắt</p>
+        </div>
+      </div>
+    </section>
+
+  </div>
+
+  <canvas id="confettiCanvas"></canvas>
+
+  <div id="music-player">
+    <audio id="bgMusic" loop>
+      <source src="assets/music.mp3" type="audio/mpeg" />
+    </audio>
+    <button id="musicBtn" class="music-btn" title="Bật/tắt nhạc">
+      <span class="music-icon">🎵</span>
+      <span class="music-label">Nhạc</span>
+      <div class="music-bars">
+        <span></span><span></span><span></span><span></span>
+      </div>
+    </button>
+  </div>
+
+  <script src="js/particles.js"></script>
+  <script src="js/gifts.js"></script>
+  <script src="js/cake.js"></script>
+  <script src="js/stickers.js"></script>
+  <script src="js/confetti.js"></script>
+  <script src="js/music.js"></script>
+  <script src="js/main.js"></script>
+  <div id="lightbox" onclick="closeLightbox()">
+    <div class="lightbox-inner" onclick="event.stopPropagation()">
+      <img id="lightboxImg" src="" alt="" />
+      <p id="lightboxCaption"></p>
+      <button class="lightbox-close" onclick="closeLightbox()">✕</button>
+    </div>
+  </div>
+
+  <script>
+    function openLightbox(polaroid) {
+      const img     = polaroid.querySelector('img');
+      const caption = polaroid.querySelector('p');
+      document.getElementById('lightboxImg').src = img.src;
+      document.getElementById('lightboxImg').alt = img.alt;
+      document.getElementById('lightboxCaption').textContent = caption.textContent;
+      document.getElementById('lightbox').classList.add('open');
+    }
+    function closeLightbox() {
+      document.getElementById('lightbox').classList.remove('open');
+    }
+    document.addEventListener('keydown', e => { if (e.key === 'Escape') closeLightbox(); });
+  </script>
+</body>
+</html>
