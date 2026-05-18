@@ -5,16 +5,14 @@
   let W, H;
 
   function resize() {
-    const dpr = window.devicePixelRatio || 1;
     W = window.innerWidth;
     H = window.innerHeight;
-    canvas.width  = W * dpr;
-    canvas.height = H * dpr;
+    canvas.width        = W;
+    canvas.height       = H;
     canvas.style.width  = W + 'px';
     canvas.style.height = H + 'px';
-    ctx.scale(dpr, dpr);
   }
-  window.addEventListener('resize', () => { resize(); });
+  window.addEventListener('resize', resize);
   resize();
 
   let animId  = null;
@@ -24,10 +22,10 @@
 
   function rand(a, b) { return a + Math.random() * (b - a); }
 
-  /* ─── MATRIX RAIN — "HAPPY BIRTHDAY" text ─── */
+  /* ─── MATRIX RAIN ─── */
   const HB_TEXT = 'HAPPY BIRTHDAY ';
-  const COL_W   = 14;
-  const ROW_H   = 16;
+  const COL_W   = 16;
+  const ROW_H   = 18;
   let cols = [];
 
   function initMatrix() {
@@ -35,20 +33,19 @@
     const n = Math.ceil(W / COL_W);
     for (let i = 0; i < n; i++) {
       cols.push({
-        x:          i * COL_W + 7,
+        x:          i * COL_W + 8,
         y:          rand(-H * 1.2, 0),
         speed:      rand(1.2, 3.5),
         len:        Math.floor(rand(10, 32)),
         charOffset: Math.floor(rand(0, HB_TEXT.length)),
-        tick:       0,
       });
     }
   }
 
   function drawMatrix() {
-    ctx.font = 'bold 12px monospace';
+    ctx.font = 'bold 13px monospace';
     cols.forEach(col => {
-      col.y += col.speed; col.tick++;
+      col.y += col.speed;
       if (col.y - col.len * ROW_H > H) {
         col.y          = rand(-H * 0.6, -ROW_H * 2);
         col.speed      = rand(1.2, 3.5);
@@ -58,8 +55,8 @@
       for (let i = 0; i < col.len; i++) {
         const cy = col.y - i * ROW_H;
         if (cy < -ROW_H || cy > H + ROW_H) continue;
-        const t   = 1 - i / col.len;
-        const ch  = HB_TEXT[(col.charOffset + col.len - i) % HB_TEXT.length];
+        const t  = 1 - i / col.len;
+        const ch = HB_TEXT[(col.charOffset + col.len - i) % HB_TEXT.length];
         ctx.globalAlpha = t * 0.55;
         ctx.fillStyle   = i === 0
           ? 'rgb(180,255,200)'
@@ -85,12 +82,14 @@
   }
 
   function buildTargets(shape) {
-    const cx = W / 2, cy = H / 2;
-    // tighter grid on narrow screens so shapes stay visible
-    const step = W < 480 ? 5 : 7;
+    const cx   = W / 2;
+    const cy   = H / 2;
+    const mob  = W < 600;
+    const step = mob ? 5 : 7;
 
     if (shape === 'cake') {
-      const sw = Math.min(W * 0.55, 320), sh = Math.round(sw);
+      const sw = Math.min(W * (mob ? 0.65 : 0.55), mob ? 260 : 320);
+      const sh = Math.round(sw);
       const pts = sampleShape((oc, ow, oh) => {
         oc.fillStyle = '#fff';
         const s = ow * 0.78, ox = (ow-s)/2, oy = oh*0.13;
@@ -99,14 +98,17 @@
         oc.fillRect(ox,       oy+s*.48, s,     s*.26);
         [.30,.46,.62].forEach(xr => {
           oc.fillRect(ox+s*xr-s*.028, oy-s*.16, s*.056, s*.16);
-          oc.beginPath(); oc.ellipse(ox+s*xr, oy-s*.18, s*.042, s*.072, 0, 0, Math.PI*2); oc.fill();
+          oc.beginPath();
+          oc.ellipse(ox+s*xr, oy-s*.18, s*.042, s*.072, 0, 0, Math.PI*2);
+          oc.fill();
         });
       }, sw, sh, step);
       return pts.map(p => ({ x: p.x+cx-sw/2, y: p.y+cy-sh/2 }));
     }
 
     if (shape === 'clover') {
-      const sw = Math.min(W * 0.50, 300), sh = Math.round(sw);
+      const sw = Math.min(W * (mob ? 0.60 : 0.50), mob ? 240 : 300);
+      const sh = Math.round(sw);
       const pts = sampleShape((oc, ow, oh) => {
         const fontSize = Math.floor(ow * 0.82);
         oc.font          = `${fontSize}px serif`;
@@ -123,17 +125,14 @@
       date:          '17.05.2006',
     };
     if (textMap[shape]) {
-      const txt    = textMap[shape];
-      const mobile = W < 600;
-      const sw     = Math.min(W - 20, mobile ? 380 : 920);
-      const sh     = mobile ? 100 : 170;
+      const txt = textMap[shape];
+      const sw  = Math.min(W - (mob ? 16 : 40), mob ? 340 : 920);
+      const sh  = mob ? 90 : 170;
       const pts = sampleShape((oc, ow, oh) => {
-        // pick initial font size
-        let fs = Math.floor(ow / (txt.length * (mobile ? 0.7 : 0.56)));
-        fs = Math.min(fs, mobile ? 56 : 115);
-        // shrink until measured width fits
+        let fs = Math.floor(ow / (txt.length * (mob ? 0.72 : 0.56)));
+        fs = Math.min(fs, mob ? 52 : 115);
         oc.font = `900 ${fs}px 'Black Ops One', Arial Black, sans-serif`;
-        while (oc.measureText(txt).width > ow - 10 && fs > 6) {
+        while (oc.measureText(txt).width > ow - 8 && fs > 6) {
           fs--;
           oc.font = `900 ${fs}px 'Black Ops One', Arial Black, sans-serif`;
         }
@@ -142,13 +141,13 @@
         oc.textBaseline  = 'middle';
         oc.fillText(txt, ow / 2, oh / 2);
       }, sw, sh, step);
-      return pts.map(p => ({ x: p.x + cx - sw/2, y: p.y + cy - sh/2 }));
+      return pts.map(p => ({ x: p.x+cx-sw/2, y: p.y+cy-sh/2 }));
     }
 
     return [];
   }
 
-  /* ─── SHAPE COLOR MAP ─── */
+  /* ─── COLOR MAP ─── */
   const SHAPE_COLORS = {
     cake:          { r: 255, g: 200, b: 50  },
     happybirthday: { r: 255, g: 255, b: 255 },
@@ -157,7 +156,6 @@
     clover:        { r:  80, g: 255, b: 120 },
   };
 
-  // current rendered color (lerps between shapes)
   let curR = 255, curG = 255, curB = 255;
   let tgtR = 255, tgtG = 255, tgtB = 255;
 
@@ -167,10 +165,9 @@
   }
 
   function lerpColor() {
-    const speed = 0.04;
-    curR += (tgtR - curR) * speed;
-    curG += (tgtG - curG) * speed;
-    curB += (tgtB - curB) * speed;
+    curR += (tgtR - curR) * 0.04;
+    curG += (tgtG - curG) * 0.04;
+    curB += (tgtB - curB) * 0.04;
   }
 
   function dotColor() {
@@ -179,6 +176,7 @@
 
   /* ─── PARTICLE ─── */
   let particles = [];
+  const DOT_R   = window.innerWidth < 600 ? 3.2 : 2.3;
 
   function makeParticle(x, y, tx, ty) {
     return { x, y, vx: 0, vy: 0, tx, ty, mode: 'homing', homingStr: 0 };
@@ -199,7 +197,8 @@
     if (extra > 0) {
       for (let i = 0; i < extra; i++) {
         const src = particles[i % particles.length];
-        particles.push(makeParticle(src.x, src.y, targets[particles.length].x, targets[particles.length].y));
+        particles.push(makeParticle(src.x, src.y,
+          targets[particles.length].x, targets[particles.length].y));
       }
     } else if (extra < 0) {
       particles.length = targets.length;
@@ -227,17 +226,17 @@
       ctx.globalAlpha = 1;
       ctx.fillStyle   = color;
       ctx.beginPath();
-      ctx.arc(p.x, p.y, 2.3, 0, Math.PI * 2);
+      ctx.arc(p.x, p.y, DOT_R, 0, Math.PI * 2);
       ctx.fill();
     });
     ctx.globalAlpha = 1;
   }
 
   /* ─── SEQUENCE ─── */
-  const SHAPES   = ['cake', 'happybirthday', 'name', 'date', 'clover'];
-  let shapeIdx   = 0;
-  let seqState   = 'homing';
-  let seqTimer   = 0;
+  const SHAPES  = ['cake', 'happybirthday', 'name', 'date', 'clover'];
+  let shapeIdx  = 0;
+  let seqState  = 'homing';
+  let seqTimer  = 0;
 
   const T_HOMING  = 130;
   const T_HOLD    = 180;
