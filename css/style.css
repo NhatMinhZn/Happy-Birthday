@@ -65,10 +65,11 @@ body {
   display: flex; flex-direction: column;
   align-items: center; gap: 24px;
   position: relative; z-index: 1;
+  overflow: visible;
 }
 
 /* ENVELOPE */
-.envelope-wrapper { perspective: 800px; }
+.envelope-wrapper { perspective: 800px; overflow: visible; }
 
 .envelope {
   width: 280px; height: 200px;
@@ -76,6 +77,7 @@ body {
   cursor: pointer;
   transform-style: preserve-3d;
   transition: transform 0.3s;
+  overflow: visible;
 }
 .envelope:hover { transform: scale(1.04) rotateX(3deg); }
 
@@ -126,7 +128,7 @@ body {
   border-radius: 4px;
   padding: 16px;
   text-align: center;
-  z-index: 3;
+  z-index: 100;
   transform: translateY(0) scaleY(0);
   transform-origin: bottom center;
   transition: transform 0.6s cubic-bezier(.4,0,.2,1) 0.3s;
@@ -148,7 +150,7 @@ body {
   transform: rotateX(-160deg);
 }
 .envelope.opened .letter {
-  transform: translateY(-130%) scaleY(1);
+  transform: translateY(-160%) scaleY(1);
 }
 
 .intro-hint {
@@ -1012,7 +1014,7 @@ section {
     max-height: 216px;
   }
   .envelope.opened .letter {
-    transform: translateY(-140%) scaleY(1);
+    transform: translateY(-160%) scaleY(1);
   }
   .letter {
     padding: 12px;
