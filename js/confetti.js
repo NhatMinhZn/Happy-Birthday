@@ -5,10 +5,16 @@
   let W, H;
 
   function resize() {
-    W = canvas.width  = window.innerWidth;
-    H = canvas.height = window.innerHeight;
+    const dpr = window.devicePixelRatio || 1;
+    W = window.innerWidth;
+    H = window.innerHeight;
+    canvas.width  = W * dpr;
+    canvas.height = H * dpr;
+    canvas.style.width  = W + 'px';
+    canvas.style.height = H + 'px';
+    ctx.scale(dpr, dpr);
   }
-  window.addEventListener('resize', resize);
+  window.addEventListener('resize', () => { resize(); });
   resize();
 
   let animId  = null;
@@ -80,7 +86,8 @@
 
   function buildTargets(shape) {
     const cx = W / 2, cy = H / 2;
-    const step = 7;
+    // tighter grid on narrow screens so shapes stay visible
+    const step = W < 480 ? 5 : 7;
 
     if (shape === 'cake') {
       const sw = Math.min(W * 0.55, 320), sh = Math.round(sw);
@@ -116,20 +123,18 @@
       date:          '17.05.2006',
     };
     if (textMap[shape]) {
-      const txt = textMap[shape];
-      // safe width with horizontal padding so letters aren't clipped
-      const pad = 40;
-      const sw  = Math.min(W - pad * 2, 920);
-      const sh  = 170;
+      const txt    = textMap[shape];
+      const mobile = W < 600;
+      const sw     = Math.min(W - 20, mobile ? 380 : 920);
+      const sh     = mobile ? 100 : 170;
       const pts = sampleShape((oc, ow, oh) => {
-        // fit font so text never exceeds canvas width
-        let fs = Math.floor(sw / (txt.length * 0.56));
-        fs = Math.min(fs, 115);
-        // measure and scale down if still too wide
+        // pick initial font size
+        let fs = Math.floor(ow / (txt.length * (mobile ? 0.7 : 0.56)));
+        fs = Math.min(fs, mobile ? 56 : 115);
+        // shrink until measured width fits
         oc.font = `900 ${fs}px 'Black Ops One', Arial Black, sans-serif`;
-        let measured = oc.measureText(txt).width;
-        if (measured > ow - 10) {
-          fs = Math.floor(fs * ((ow - 10) / measured));
+        while (oc.measureText(txt).width > ow - 10 && fs > 6) {
+          fs--;
           oc.font = `900 ${fs}px 'Black Ops One', Arial Black, sans-serif`;
         }
         oc.fillStyle     = '#fff';
@@ -293,15 +298,22 @@
   window.launchConfetti     = function () {};
   window.launchFireworkShow = function () {
     if (phase === 'show') return;
-    phase = 'show'; bgAlpha = 0; frame = 0;
-    particles = [];
-    const first = SHAPE_COLORS[SHAPES[0]];
-    curR = first.r; curG = first.g; curB = first.b;
-    canvas.style.pointerEvents = 'auto';
-    cancelAnimationFrame(animId);
-    initMatrix();
-    startSequence();
-    loop();
+    const run = () => {
+      phase = 'show'; bgAlpha = 0; frame = 0;
+      particles = [];
+      const first = SHAPE_COLORS[SHAPES[0]];
+      curR = first.r; curG = first.g; curB = first.b;
+      canvas.style.pointerEvents = 'auto';
+      cancelAnimationFrame(animId);
+      initMatrix();
+      startSequence();
+      loop();
+    };
+    if (document.fonts && document.fonts.ready) {
+      document.fonts.ready.then(run);
+    } else {
+      setTimeout(run, 400);
+    }
   };
 
   document.addEventListener('DOMContentLoaded', () => {
