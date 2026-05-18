@@ -148,7 +148,7 @@ body {
   transform: rotateX(-160deg);
 }
 .envelope.opened .letter {
-  transform: translateY(-110%) scaleY(1);
+  transform: translateY(-130%) scaleY(1);
 }
 
 .intro-hint {
@@ -1002,4 +1002,22 @@ section {
   font-size: 0.78rem;
   color: rgba(255,255,255,0.35);
   letter-spacing: 0.05em;
+}
+
+@media (max-width: 480px) {
+  .envelope {
+    width: 88vw;
+    max-width: 300px;
+    height: calc(88vw * 0.72);
+    max-height: 216px;
+  }
+  .envelope.opened .letter {
+    transform: translateY(-140%) scaleY(1);
+  }
+  .letter {
+    padding: 12px;
+  }
+  .letter-text {
+    font-size: 0.8rem;
+  }
 }
